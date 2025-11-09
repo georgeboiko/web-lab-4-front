@@ -1,5 +1,5 @@
-import { useError } from "../../shared/model/ErrorNotification/useError";
-import { ErrorNotification } from "../../shared/ui/ErrorNotification/ErrorNotification";
+import { useError } from "../../shared/hooks/useError";
+import { ErrorNotification } from "../../shared/components/ErrorNotification/ErrorNotification";
 
 export const ErrorProvider = ({ children }) => {
     const { error, clearError } = useError();

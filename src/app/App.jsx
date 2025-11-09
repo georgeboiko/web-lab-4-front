@@ -1,10 +1,10 @@
 import { AppProvider } from './providers/AppProvider';
-import { AuthForm } from '../features/auth/ui/AuthForm';
+import { AppRouter } from './AppRouter';
 
 const App = () => (
+  
   <AppProvider>
-    {/*  TODO: delete from App.jsx this shit */}
-    <AuthForm/> 
+    <AppRouter />
   </AppProvider>
 );
 

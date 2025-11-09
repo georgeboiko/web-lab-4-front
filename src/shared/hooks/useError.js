@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { clearError, showError } from "../../../features/error/errorSlice";
+import { clearError, showError } from "../../features/error/errorSlice";
 
 
 export const useError = () => {

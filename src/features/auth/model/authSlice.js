@@ -30,7 +30,7 @@ export const registerUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
     'auth/logoutUser',
-    async ({ rejectWithValue, dispatch }) => {
+    async (_, { rejectWithValue, dispatch }) => {
         try {
             await authApi.logout();
             return null;
@@ -41,19 +41,30 @@ export const logoutUser = createAsyncThunk(
     }
 );
 
+export const fetchUser = createAsyncThunk(
+    'auth/fetchUser',
+    async(_, {rejectWithValue, dispatch}) => {
+        try {
+            const response = await authApi.getCurrentUser();
+            return response?.user || null;
+        } catch (err) {
+            dispatch(showError(err.message || 'Failed to fetch user'));
+            return rejectWithValue(err.message || 'Failed to fetch user');
+        }
+    }
+);
+
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
         user: null,
-        loading: false,
-        error: null
+        loading: false
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(loginUser.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.loading = false;
@@ -61,12 +72,10 @@ const authSlice = createSlice({
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
             })
 
             .addCase(registerUser.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.loading = false;
@@ -74,12 +83,10 @@ const authSlice = createSlice({
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
             })
 
             .addCase(logoutUser.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(logoutUser.fulfilled, (state) => {
                 state.loading = false;
@@ -87,9 +94,20 @@ const authSlice = createSlice({
             })
             .addCase(logoutUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+            })
+
+            .addCase(fetchUser.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchUser.fulfilled, (state, action) => {
+                state.loading = false;
+                state.user = action.payload;
+            })
+            .addCase(fetchUser.rejected, (state) => {
+                state.loading = false;
+                state.user = null;
             }
-        );
+        )
     }
 });
 
