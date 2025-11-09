@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useAuth } from "../model/useAuth";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { showError, clearError } from '../../../features/error/errorSlice';
 import styles from "./AuthForm.module.css";
 
 export const AuthForm = () => {
     const dispatch = useDispatch();
-    const error = useSelector(state => state.error);
     const {user, login, register, logout, loading } = useAuth();
     const [mode, setMode] = useState('login');
     const [email, setEmail] = useState('');

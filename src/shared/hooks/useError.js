@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, showError } from "../../features/error/errorSlice";
 
