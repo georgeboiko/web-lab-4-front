@@ -1,22 +1,23 @@
-import { User } from "../../../entities/user";
+import { httpClient } from "../../../shared/api/httpClient";
 
 export const authApi = {
-    login: async ({ email, password }) => {
-        console.log(`login ${email} ${password}`);
-        return new User({ 
-            email, 
-            password
+    login: async (data) => {
+        console.log(`login ${data}`);
+        console.log(await httpClient('/api/v1/auth/login', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        }));
+    },
+    register: async (data) => {
+        console.log(`register ${data}`);
+        httpClient('/api/v1/auth/register', {
+            method: 'POST',
+            body: JSON.stringify(data)
         });
     },
-    register: async ({ email, password }) => {
-        console.log(`register ${email} ${password}`);
-        return new User({ 
-            email, 
-            password
+    logout: async () => {
+        httpClient('/api/v1/auth/logout', {
+            method: 'POST'
         });
-    },
-    logout: async ({ email }) => {
-        console.log(`login ${email}`);
-        return true;
     }
 }

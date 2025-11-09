@@ -1,64 +1,92 @@
 import { useState } from "react";
-import { useAuth } from "../model/useAuth"
+import { useAuth } from "../model/useAuth";
+import { useSelector, useDispatch } from 'react-redux';
+import { showError, clearError } from '../../../features/error/errorSlice';
+import styles from "./AuthForm.module.css";
 
 export const AuthForm = () => {
-    const {user, login, register, logout, loading, error} = useAuth();
+    const dispatch = useDispatch();
+    const error = useSelector(state => state.error);
+    const {user, login, register, logout, loading } = useAuth();
     const [mode, setMode] = useState('login');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        logout(email);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        dispatch(clearError());
+        if (!email || !password) {
+            dispatch(showError('Please fill all fields'));
+            return;
+        }
+
+        mode === 'login' ? login(email, password) : register(email, password);
+    };
 
     if (user) {
         return (
             <div>
                 <div>
-                    здарова братан, {user.email}
+                    hello, {user.email}
                 </div>
                 <div>
-                    <button onClick={logout}> ливнуть </button>
+                    <button onClick={handleLogout}> Logout </button>
                 </div>
             </div>
         );
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        mode === 'login' ? login(email, password) : register(email, password);
-    };
-
     return (
-        <div>
-            <div>
+        <div className={styles.authFormMain}>
+            <div className={styles.formMode}>
                 {mode}
             </div>
-            <form onSubmit={handleSubmit}>
+            <form className={styles.authForm} onSubmit={handleSubmit}>
                 <input
                     type="text"
                     placeholder="Email"
                     value={email}
+                    className={styles.input}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
+                    className={styles.input}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                {error && <div> {error} </div>}
-                <button disabled={loading} type="submit">
-                    {loading ? 'Гружу (а я грущу) бро...' : (mode === 'login' ? 'войти' : 'регаца')}
+                <button 
+                    disabled={loading}
+                    type="submit"
+                    className={styles.submitBtn}
+                >
+                    {loading ? 'Loading...' : (mode === 'login' ? 'Login' : 'Register')}
                 </button>
             </form>
-            <div>
-                { mode === 'login' ? (
-                    <button type="button" onClick={() => setMode('register')}>
-                        хочу регнуца
-                    </button>
-                ) : (
-                    <button type="button" onClick={() => setMode('login')}>
-                        хочу логиница
-                    </button>
-                )}
-            </div>
+            { mode === 'login' ? (
+                <button
+                    type="button"
+                    onClick={() => setMode('register')}
+                    className={styles.changeBtn}
+                >
+                    No account?
+                </button>
+            ) : (
+                <button
+                    type="button"
+                    onClick={() => setMode('login')}
+                    className={styles.changeBtn}
+                >
+                    Already registred?
+                </button>
+            )}
         </div>
     );
 }

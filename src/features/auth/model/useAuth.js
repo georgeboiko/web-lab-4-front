@@ -1,53 +1,16 @@
-import { useState } from "react";
-import { authApi } from "../api/authApi";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser, registerUser, logoutUser } from './authSlice';
 
 export const useAuth = () => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [user, setUser] = useState(null);
+    const dispatch = useDispatch();
+    const { user, loading, error } = useSelector((state) => state.auth);
 
-    const login = async (email, password) => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            const user = await authApi.login(email, password);
-            setUser(user);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    const register = async (email, password) => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            const user = await authApi.register(email, password);
-            setUser(user);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    }    
-
-    const logout = async (email) => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            await authApi.logout(email);
-            setUser(null);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    return { user, login, register, logout, loading, error };
-
-}
+    return {
+        user,
+        loading,
+        error,
+        login: (email, password) => dispatch(loginUser({ email, password })),
+        register: (email, password) => dispatch(registerUser({ email, password })),
+        logout: () => dispatch(logoutUser()),
+    };
+};
