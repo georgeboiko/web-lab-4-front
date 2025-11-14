@@ -9,7 +9,10 @@ export const loginUser = createAsyncThunk(
             const response = await authApi.login({email, password});
             return response?.user || null; 
         } catch (err) {
-            dispatch(showError(err.message || 'Login failed'));
+            dispatch(showError({
+                description: err.message || 'Login failed',
+                fullText: null
+            }));
             return rejectWithValue(err.message || 'Login failed');
         }
     }
@@ -22,7 +25,10 @@ export const registerUser = createAsyncThunk(
             const response = await authApi.register({ email, password });
             return response?.user || null;
         } catch (err) {
-            dispatch(showError(err.message || 'Register failed'));
+            dispatch(showError({
+                description: err.message || 'Register failed',
+                fullText: null
+            }));
             return rejectWithValue(err.message || 'Register failed');
         }
     }
@@ -35,7 +41,10 @@ export const logoutUser = createAsyncThunk(
             await authApi.logout();
             return null;
         } catch (err) {
-            dispatch(showError(err.message || 'Logout failed'));
+            dispatch(showError({
+                description: err.message || 'Logout failed',
+                fullText: null
+            }));
             return rejectWithValue(err.message || 'Logout failed');
         }
     }

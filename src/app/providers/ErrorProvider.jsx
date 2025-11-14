@@ -2,7 +2,7 @@ import { useError } from "../../shared/hooks/useError";
 import { ErrorNotification } from "../../shared/components/ErrorNotification/ErrorNotification";
 
 export const ErrorProvider = ({ children }) => {
-    const { error, clearError } = useError();
+    const { error, clearError, extendText } = useError();
 
     return (
         <>
@@ -11,6 +11,7 @@ export const ErrorProvider = ({ children }) => {
                 error={error}
                 onClose={clearError}
                 autoClose={5000}
+                extendText={extendText}
             />
         </>
     );

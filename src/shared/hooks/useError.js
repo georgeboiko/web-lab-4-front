@@ -8,7 +8,7 @@ export const useError = () => {
     const dispatch = useDispatch();
 
     const handleShowError = useCallback(
-        msg => dispatch(showError(msg)), 
+        (payload) => dispatch(showError(payload)), 
         [dispatch]
     );
 

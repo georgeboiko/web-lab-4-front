@@ -21,7 +21,11 @@ export const AuthForm = () => {
 
         dispatch(clearError());
         if (!email || !password) {
-            dispatch(showError('Please fill all fields'));
+            dispatch(showError({
+                description: 'Please fill all fields',
+                fullText: null
+            }));
+            
             return;
         }
 

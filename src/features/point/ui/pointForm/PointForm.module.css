@@ -1,0 +1,4 @@
+.pointFormContainer {
+    display: flex;
+    flex-direction: column;
+}
