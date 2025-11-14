@@ -1,8 +1,12 @@
 import { AuthForm } from "../../features/auth/ui/AuthForm";
+import { InformationBlock } from "../../widgets/informationBlock/ui/InformationBlock";
 
 const AuthPage = () => {
     return (
-        <AuthForm />
+        <div>
+            <InformationBlock/>
+            <AuthForm />
+        </div>
     );
 };
 

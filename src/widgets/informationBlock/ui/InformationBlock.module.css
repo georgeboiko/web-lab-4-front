@@ -1,0 +1,105 @@
+.informationBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.item {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+.item:hover {
+    background: rgba(102, 126, 234, 0.12);
+    color: #3d4cbd;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
+    transform: translateY(-2px);
+}
+
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+
+    animation: fadeIn 0.25s ease;
+}
+
+.modalContent {
+    position: relative;
+    background: white;
+    padding: 12px;
+
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+
+    animation: scaleIn 0.2s ease;
+}
+
+.modalImage {
+    max-width: 90vw;
+    max-height: 80vh;
+    display: block;
+    border-radius: 10px;
+}
+
+.closeBtn {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+
+    background: #ff4d4d;
+    color: white;
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+    transition: 0.2s;
+}
+
+.closeBtn:hover {
+    background: #ff2a2a;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}

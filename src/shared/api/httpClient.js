@@ -2,6 +2,12 @@ const BASE_URL = 'http://localhost:8080/web4';
 let isRefreshing = false;
 let refreshPromise = null;
 
+let storeRef = null;
+export const injectStore = (store) => {
+  storeRef = store;
+};
+
+
 export const httpClient = async (url, options = {}) => {
     
     const headers = {
@@ -26,8 +32,7 @@ export const httpClient = async (url, options = {}) => {
     if (res.ok) {
         return data;
     }
-
-    if (res.status === 401 && !config._retry) {
+    if (res.status === 401 && !config._retry && storeRef.getState().auth.user) {
         if (!isRefreshing) {
             console.log('Refreshing...');
             isRefreshing = true;
