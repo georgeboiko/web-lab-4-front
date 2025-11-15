@@ -111,7 +111,18 @@ export const PointChart = ({pointHook, rGet}) => {
                     fill="url(#pointerGradient)"
                 />
 
-                
+                {
+                    points && points.validPoints.map(result => (
+                        <circle
+                            key={result.id}
+                            cx={result.x*scale + center}
+                            cy={-result.y*scale + center}
+                            r={7}
+                            fill={result.success ? "rgb(45, 255, 69)" : "rgb(255, 67, 67)"}
+                            className={styles.resPoint}
+                        />
+                    ))
+                }
 
             </svg>
         </div>
