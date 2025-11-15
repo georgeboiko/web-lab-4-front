@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 const formatInvalidPoints = (data) => {
     return {
-        description: "228337",
+        description: "Invalid input",
         fullText: JSON.stringify(data)
     };
 };
@@ -20,7 +20,7 @@ export const usePoint = () => {
         setLoading(true);
         try {
             const res = await pointApi.getPoints();
-            setPoints(res); 
+            setPoints(res);
         } catch (err) {
             dispatch(showError({
                 description: err.message || 'Fetch points failed',
@@ -35,8 +35,13 @@ export const usePoint = () => {
         setLoading(true);
         try {
             const res = await pointApi.addPoints(data);
-            if (res.invalidPoints) dispatch(showError(formatInvalidPoints(res.invalidPoints)));
-            setPoints(res);
+            if (res.invalidPoints.length !== 0) dispatch(showError(formatInvalidPoints(res.invalidPoints)));
+            setPoints({
+                validPoints: [
+                    ...points.validPoints,
+                    ...(res.validPoints ?? [])
+                ]
+            });
         } catch (err) {
             dispatch(showError({
                 description: err.message || 'Add points failed',
@@ -51,7 +56,11 @@ export const usePoint = () => {
         setLoading(true);
         try {
             const res = await pointApi.deletePoints(data);
-            setPoints(res);
+            setPoints({
+                validPoints: points.validPoints.filter(
+                    p => !res.points.includes(p.id)
+                )
+            });
         } catch (err) {
             dispatch(showError({
                 description: err.message || 'Delete points failed',

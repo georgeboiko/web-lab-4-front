@@ -1,17 +1,40 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePoint } from "../../model/usePoint";
 import styles from "./PointTable.module.css";
 
-export const PointTable = () => {
+export const PointTable = ({ pointHook }) => {
     
-    const {points, loading, getPoints, addPoints, deletePoints} = usePoint();
+    const {points, loading, getPoints, addPoints, deletePoints} = pointHook;
+
+    const [selectedIds, setSelectedIds] = useState([]);
+
     
     useEffect(() => {
         getPoints();
     }, []);
 
-    if (!points) {
+    if (!points || !points.validPoints || points.validPoints.length === 0) {
         return <div>No data</div>;
+    }
+
+    const handleToggle = (id) => {
+        setSelectedIds(prev =>
+            prev.includes(id)
+                ? prev.filter(item => item !== id) 
+                : [...prev, id]
+        );
+    };
+
+
+    const handleDelete = async () => {
+        if (selectedIds.length === 0) return;
+
+        await deletePoints(
+            {
+                points: selectedIds
+            }
+        );
+        setSelectedIds([]);
     }
 
     return (
@@ -23,16 +46,31 @@ export const PointTable = () => {
                         <th> y </th>
                         <th> r </th>
                         <th> result </th>
+                        <th>
+                            <button 
+                                className={styles.deleteBtn}
+                                onClick={handleDelete}
+                                disabled={selectedIds.length === 0}
+                            > Delete? </button>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        points.validPoints.map(result => (
+                        points.validPoints.slice().reverse().map(result => (
                             <tr key={result.id}>
                                 <td> {result.x} </td>
                                 <td> {result.y} </td>
                                 <td> {result.r} </td>
                                 <td className={styles.resultCell}> {result.success ? '✅' : '❌'} </td>
+                                <td>
+                                    <input
+                                        className={styles.selectBox}
+                                        type="checkbox"
+                                        checked={selectedIds.includes(result.id)}
+                                        onChange={() => handleToggle(result.id)}
+                                    />
+                                </td>
                             </tr>
                         ))
                     }

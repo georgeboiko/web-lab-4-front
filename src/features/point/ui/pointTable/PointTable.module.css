@@ -15,6 +15,37 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
+.deleteBtn {
+    background-color: #ff4d4d;
+    padding: 10px 16px;
+    max-width: fit-content;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: 
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+
+    box-shadow: 0 4px 8px rgba(255, 77, 77, 0.4);
+}
+
+.deleteBtn:hover {
+    background-color: #ff1f1f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 31, 31, 0.45);
+}
+
+.deleteBtn:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(255, 31, 31, 0.3);
+}
+
 .pointTable thead {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -39,4 +70,31 @@
 
 .resultCell {
     font-size: 1.2rem;
+}
+
+.selectBox {
+    appearance: none;
+    
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff4d4d;
+    border-radius: 5px;
+    cursor: pointer;
+
+    vertical-align: middle;
+
+    transition: 
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.selectBox:hover {
+    border-color: #ff1f1f;
+    transform: scale(1.05);
+}
+
+.selectBox:checked {
+    background-color: #ff4d4d;
+    border-color: #ffbaba;
 }
