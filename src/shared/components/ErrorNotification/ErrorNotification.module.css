@@ -40,16 +40,12 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(3px);
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     z-index: 1000;
-
     animation: fadeIn 0.25s ease;
 }
 
@@ -57,10 +53,8 @@
     position: relative;
     background: white;
     padding: 12px;
-
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-
     animation: scaleIn 0.2s ease;
 }
 
@@ -68,24 +62,18 @@
     position: absolute;
     top: -12px;
     right: -12px;
-
     background: #ff4d4d;
     color: white;
-
     width: 32px;
     height: 32px;
-
     border: none;
     border-radius: 50%;
     cursor: pointer;
-
     font-size: 1.2rem;
     font-weight: bold;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
     transition: 0.2s;
 }
@@ -132,5 +120,54 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 1106px) and (min-width: 662px) {
+    .errorWidget {
+        top: 15px;
+        right: 15px;
+        min-width: 220px;
+        max-width: 300px;
+        padding: 10px 14px;
+    }
+    
+    .modalContent {
+        margin: 20px;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 661px) {
+    .errorWidget {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        max-width: none;
+        padding: 10px 12px;
+    }
+    
+    .modalContent {
+        margin: 15px;
+        max-width: none;
+        width: calc(100% - 30px);
+    }
+    
+    .closeBtn {
+        top: -8px;
+        right: -8px;
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+    
+    .errorMessage {
+        font-size: 13px;
+    }
+    
+    .moreButton {
+        padding: 5px 10px;
+        font-size: 1rem;
     }
 }

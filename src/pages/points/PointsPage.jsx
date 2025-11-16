@@ -12,7 +12,7 @@ const PointsPage = () => {
     const [r, setR] = useState(null);
     
     return (
-        <div>
+        <div className={styles.main}>
             <Navbar/>
             <div className={styles.container}>
                 <PointForm pointHook={pointHook} rGet={r} rSet={setR} />

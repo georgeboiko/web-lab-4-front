@@ -20,10 +20,10 @@ export const AppRouter = () => {
 
             <Route 
                 path="/auth" 
-                element={user ? <Navigate to="/home" replace /> : <AuthPage />} 
+                element={user ? <Navigate to="/points" replace /> : <AuthPage />} 
             />
 
-            <Route path="*" element={<Navigate to={user ? "/home" : "/auth"} replace />} />
+            <Route path="*" element={<Navigate to={user ? "/points" : "/auth"} replace />} />
         </Routes>
     );
 };

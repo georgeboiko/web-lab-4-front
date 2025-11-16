@@ -39,3 +39,34 @@
 .submitBtn:active:not(:disabled) {
     transform: translateY(4px);
 }
+
+@media (max-width: 1106px) and (min-width: 662px) {
+    .pointFormContainer {
+        max-width: 280px;
+    }
+    
+    .inputXR {
+        margin: 12px 10px;
+    }
+    
+    .submitBtn {
+        padding: 14px 32px;
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 661px) {
+    .pointFormContainer {
+        max-width: 250px;
+    }
+    
+    .inputXR {
+        margin: 14px 10px;
+    }
+    
+    .submitBtn {
+        padding: 16px 34px;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+    }
+}
