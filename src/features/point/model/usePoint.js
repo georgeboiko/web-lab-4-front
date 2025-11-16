@@ -12,6 +12,7 @@ const formatInvalidPoints = (data) => {
 
 export const usePoint = () => {
     const [points, setPoints] = useState(null);
+    const [pointsWithR, setPointsWithR] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
@@ -24,6 +25,21 @@ export const usePoint = () => {
         } catch (err) {
             dispatch(showError({
                 description: err.message || 'Fetch points failed',
+                fullText: null
+            }));
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const getPointsWithR = async (data) => {
+        setLoading(true);
+        try {
+            const res = await pointApi.getPointsWithR(data);
+            setPointsWithR(res);
+        } catch (err) {
+            dispatch(showError({
+                description: err.message || 'Fetch points with R failed',
                 fullText: null
             }));
         } finally {
@@ -71,5 +87,5 @@ export const usePoint = () => {
         }
     }
 
-    return {points, loading, getPoints, addPoints, deletePoints};
+    return {points, pointsWithR, loading, getPoints, getPointsWithR, addPoints, deletePoints};
 }

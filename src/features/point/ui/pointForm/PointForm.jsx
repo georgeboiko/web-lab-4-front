@@ -7,7 +7,7 @@ import { showError } from "../../../error/errorSlice";
 
 export const PointForm = ({pointHook, rGet, rSet}) => {
 
-    const {points, loading, getPoints, addPoints, deletePoints} = pointHook;
+    const {points, pointsWithR, loading, getPoints, getPointsWithR, addPoints, deletePoints} = pointHook;
     const dispatch = useDispatch();
 
     const [x, setX] = useState(null);
@@ -27,9 +27,9 @@ export const PointForm = ({pointHook, rGet, rSet}) => {
 
     const validate = (x, y, r) => {
         let error = "";
-        if (x == null || x == "" || x < -5 || x > 3) error += "X must be in [-5; 3] \n";
-        if (y == null || y == "" || y < -3 || y > 5) error += "Y must be in [-3; 5] \n";
-        if (r == null || r == "" || r < -5 || r > 3) error += "R must be in [-5; 3] \n";
+        if (x === null || x === "" || x < -5 || x > 3) error += "X must be in [-5; 3] \n";
+        if (y === null || y === "" || y < -3 || y > 5) error += "Y must be in [-3; 5] \n";
+        if (r === null || r === "" || r < -5 || r > 3) error += "R must be in [-5; 3] \n";
         return error;
     };
 

@@ -6,6 +6,11 @@ export const pointApi = {
             method: 'GET'
         });
     },
+    getPointsWithR: async (data) => {
+        return await httpClient(`/api/v1/point?r=${data}`, {
+            method: 'GET'
+        });
+    },
     addPoints: async (data) => {
         return await httpClient('/api/v1/point', {
             method: 'POST',

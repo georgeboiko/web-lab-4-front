@@ -4,18 +4,13 @@ import styles from "./PointTable.module.css";
 
 export const PointTable = ({ pointHook }) => {
     
-    const {points, loading, getPoints, addPoints, deletePoints} = pointHook;
+    const {points, pointsWithR, loading, getPoints, getPointsWithR, addPoints, deletePoints} = pointHook;
 
     const [selectedIds, setSelectedIds] = useState([]);
 
-    
     useEffect(() => {
         getPoints();
     }, []);
-
-    if (!points || !points.validPoints || points.validPoints.length === 0) {
-        return <div>No data</div>;
-    }
 
     const handleToggle = (id) => {
         setSelectedIds(prev =>
@@ -35,6 +30,38 @@ export const PointTable = ({ pointHook }) => {
             }
         );
         setSelectedIds([]);
+    };
+
+    const selectAll = () => {
+        if (selectedIds.length === points.validPoints.length) setSelectedIds([]) 
+        else setSelectedIds(points.validPoints.map(result => result.id));
+    };
+
+
+    if (!points || !points.validPoints || points.validPoints.length === 0) {
+        return <div className={styles.tableContainer}>
+                <table className={styles.pointTable}>
+                    <thead>
+                        <tr>
+                            <th> x </th>
+                            <th> y </th>
+                            <th> r </th>
+                            <th> result </th>
+                            <th className={styles.twoBtnTh}>
+                                <button 
+                                    className={styles.deleteBtn}
+                                    onClick={handleDelete}
+                                    disabled={selectedIds.length === 0}
+                                > Delete </button>
+                                <button 
+                                    className={styles.allBtn}
+                                    onClick={selectAll}
+                                > All </button>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>;
     }
 
     return (
@@ -46,12 +73,16 @@ export const PointTable = ({ pointHook }) => {
                         <th> y </th>
                         <th> r </th>
                         <th> result </th>
-                        <th>
+                        <th className={styles.twoBtnTh}>
                             <button 
                                 className={styles.deleteBtn}
                                 onClick={handleDelete}
                                 disabled={selectedIds.length === 0}
-                            > Delete? </button>
+                            > Delete </button>
+                            <button 
+                                className={styles.allBtn}
+                                onClick={selectAll}
+                            > All </button>
                         </th>
                     </tr>
                 </thead>
