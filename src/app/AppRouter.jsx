@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import AuthPage from '../pages/auth/AuthPage';
-import HomePage from '../pages/home/HomePage';
 import PointsPage from '../pages/points/PointsPage';
 import { useSelector } from 'react-redux';
 
@@ -10,14 +9,6 @@ export const AppRouter = () => {
 
     return (
         <Routes>
-            <Route 
-                path="/home" 
-                element={
-                    <ProtectedRoute>
-                        <HomePage />
-                    </ProtectedRoute>
-                } 
-            />
             <Route 
                 path="/points" 
                 element={

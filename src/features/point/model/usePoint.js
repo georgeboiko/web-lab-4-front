@@ -2,6 +2,8 @@ import { useState } from "react";
 import { pointApi } from "../api/pointApi";
 import { showError } from "../../error/errorSlice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useWebSocket } from "../../../shared/hooks/useWebSocket";
 
 const formatInvalidPoints = (data) => {
     return {
@@ -16,6 +18,45 @@ export const usePoint = () => {
     const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
+
+    const { lastMessage: addMessage } = useWebSocket("ws://localhost:8080/web4/websocket/point");
+    const { lastMessage: deleteMessage } = useWebSocket("ws://localhost:8080/web4/websocket/delete");
+
+    useEffect(() => {
+        if (addMessage) {
+            try {
+                const res = JSON.parse(addMessage.data);
+                console.log("New data from WebSocket:", res);
+
+                setPoints({
+                    validPoints: [
+                        ...points.validPoints,
+                        ...(res.validPoints ?? [])
+                    ]
+                });
+            } catch (error) {
+                console.error("Error parsing WebSocket message:", error);
+            }
+        }
+
+    }, [addMessage]);
+
+    useEffect(() => {
+         if (deleteMessage) {
+            try {
+                const res = JSON.parse(deleteMessage.data);
+                console.log("New data from WebSocket:", res);
+                setPoints({
+                    validPoints: points.validPoints.filter(
+                        p => !res.points.includes(p.id)
+                    )
+                });
+            } catch (error) {
+                console.error("Error parsing WebSocket message:", error);
+            }
+        }
+
+    }, [deleteMessage]);
 
     const getPoints = async () => {
         setLoading(true);
@@ -52,12 +93,6 @@ export const usePoint = () => {
         try {
             const res = await pointApi.addPoints(data);
             if (res.invalidPoints.length !== 0) dispatch(showError(formatInvalidPoints(res.invalidPoints)));
-            setPoints({
-                validPoints: [
-                    ...points.validPoints,
-                    ...(res.validPoints ?? [])
-                ]
-            });
         } catch (err) {
             dispatch(showError({
                 description: err.message || 'Add points failed',
@@ -71,12 +106,7 @@ export const usePoint = () => {
     const deletePoints = async (data) => {
         setLoading(true);
         try {
-            const res = await pointApi.deletePoints(data);
-            setPoints({
-                validPoints: points.validPoints.filter(
-                    p => !res.points.includes(p.id)
-                )
-            });
+            await pointApi.deletePoints(data);
         } catch (err) {
             dispatch(showError({
                 description: err.message || 'Delete points failed',

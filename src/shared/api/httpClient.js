@@ -1,3 +1,5 @@
+import { toAuth } from "../../widgets/navbar/ui/Navbar";
+
 const BASE_URL = 'http://localhost:8080/web4';
 let isRefreshing = false;
 let refreshPromise = null;
@@ -6,7 +8,6 @@ let storeRef = null;
 export const injectStore = (store) => {
   storeRef = store;
 };
-
 
 export const httpClient = async (url, options = {}) => {
     
@@ -42,7 +43,7 @@ export const httpClient = async (url, options = {}) => {
             })
             .then((res) => {
                 if (!res.ok) throw new Error('Refresh failed');
-                return res.json();
+                return res.json(); 
             })
             .finally(() => isRefreshing = false);
         }
@@ -64,6 +65,7 @@ export const httpClient = async (url, options = {}) => {
             return await httpClient(url, retryConfig);
         } catch (err) {
             console.warn('Refresh failed, logging out...');
+            window.location.href = "/auth";
             throw err;
         }
     }

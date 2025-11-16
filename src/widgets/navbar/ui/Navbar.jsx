@@ -15,9 +15,6 @@ export const Navbar = () => {
 
     return (
         <div className={styles.navbar}>
-            <div className={styles.navItem} onClick={() => navigate("/home")}>
-                Home
-            </div>
             <div className={styles.navItem} onClick={() => navigate("/points")}>
                 Points
             </div>
