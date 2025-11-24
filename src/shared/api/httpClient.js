@@ -1,5 +1,3 @@
-import { toAuth } from "../../widgets/navbar/ui/Navbar";
-
 const BASE_URL = 'http://localhost:8080/web4';
 let isRefreshing = false;
 let refreshPromise = null;

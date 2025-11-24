@@ -3,6 +3,8 @@ import { useAuth } from "../model/useAuth";
 import { useDispatch } from 'react-redux';
 import { showError, clearError } from '../../../features/error/errorSlice';
 import styles from "./AuthForm.module.css";
+import CustomButton from "../../../widgets/CustomButton/ui/CustomButton";
+import CustomInput from "../../../widgets/CustomInput/CustomInput";
 
 export const AuthForm = () => {
     const dispatch = useDispatch();
@@ -51,27 +53,23 @@ export const AuthForm = () => {
                 {mode}
             </div>
             <form className={styles.authForm} onSubmit={handleSubmit}>
-                <input
+                <CustomInput
                     type="text"
                     placeholder="Email"
                     value={email}
-                    className={styles.input}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <input
+                <CustomInput
                     type="password"
                     placeholder="Password"
                     value={password}
-                    className={styles.input}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button 
-                    disabled={loading}
+                <CustomButton
                     type="submit"
-                    className={styles.submitBtn}
-                >
-                    {loading ? 'Loading...' : (mode === 'login' ? 'Login' : 'Register')}
-                </button>
+                    disabled={loading}
+                    text={loading ? 'Loading...' : (mode === 'login' ? 'Login' : 'Register')}
+                />
             </form>
             { mode === 'login' ? (
                 <button

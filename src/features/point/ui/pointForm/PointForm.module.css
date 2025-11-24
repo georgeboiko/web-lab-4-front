@@ -11,35 +11,6 @@
     margin: 10px;
 }
 
-.submitBtn {
-    padding: 12px 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 0.5rem;
-}
-
-.submitBtn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-}
-
-.submitBtn:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
-.submitBtn:active:not(:disabled) {
-    transform: translateY(4px);
-}
-
 @media (max-width: 1106px) and (min-width: 662px) {
     .pointFormContainer {
         max-width: 280px;

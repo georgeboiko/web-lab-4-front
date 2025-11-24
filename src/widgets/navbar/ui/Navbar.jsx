@@ -18,6 +18,9 @@ export const Navbar = () => {
             <div className={styles.navItem} onClick={() => navigate("/points")}>
                 Points
             </div>
+            <div className={styles.navItem} onClick={() => navigate("/profile")}>
+                Profile
+            </div>
             <div className={styles.toLogout} onClick={handleLogout} >
                 Log Out
             </div>

@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import AuthPage from '../pages/auth/AuthPage';
 import PointsPage from '../pages/points/PointsPage';
+import ProfilePage from '../pages/profile/ProfilePage';
 import { useSelector } from 'react-redux';
 
 export const AppRouter = () => {
@@ -16,6 +17,15 @@ export const AppRouter = () => {
                         <PointsPage />
                     </ProtectedRoute>
                 } 
+            />
+
+            <Route
+                path="/profile"
+                element={
+                    <ProtectedRoute>
+                        <ProfilePage/>
+                    </ProtectedRoute>
+                }
             />
 
             <Route 

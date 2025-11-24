@@ -22,7 +22,7 @@ export const InformationBlock = () => {
                 <div className={styles.modalBackdrop} onClick={() => setIsVariantOpen(false)}>
                     <div className={styles.modalContent}>
                         <img
-                            src="images/variant.png"
+                            src="/images/variant.png"
                             alt="Вариант"
                             className={styles.modalImage}
                         />

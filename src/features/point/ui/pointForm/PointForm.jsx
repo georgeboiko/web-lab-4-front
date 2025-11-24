@@ -4,6 +4,7 @@ import styles from "./PointForm.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showError } from "../../../error/errorSlice";
+import CustomButton from "../../../../widgets/CustomButton/ui/CustomButton";
 
 export const PointForm = ({pointHook, rGet, rSet}) => {
 
@@ -81,7 +82,7 @@ export const PointForm = ({pointHook, rGet, rSet}) => {
                 )}
                 onChange={(e, newValue) => rSet(newValue ? newValue.label : null)}
             />
-            <button type="submit" className={styles.submitBtn}> Submit </button>
+            <CustomButton type="submit" text="Submit" />
         </form>
     );
 

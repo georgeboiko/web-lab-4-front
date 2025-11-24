@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { usePoint } from "../../model/usePoint";
 import styles from "./PointTable.module.css";
 
 export const PointTable = ({ pointHook }) => {
