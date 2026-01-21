@@ -19,8 +19,8 @@ export const usePoint = () => {
 
     const dispatch = useDispatch();
 
-    const { lastMessage: addMessage } = useWebSocket("ws://localhost:8080/web4/websocket/point");
-    const { lastMessage: deleteMessage } = useWebSocket("ws://localhost:8080/web4/websocket/delete");
+    const { lastMessage: addMessage } = useWebSocket("ws://localhost:8888/ws/points-added");
+    const { lastMessage: deleteMessage } = useWebSocket("ws://localhost:8888/ws/points-deleted");
 
     useEffect(() => {
         if (addMessage) {
