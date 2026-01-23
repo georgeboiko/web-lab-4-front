@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8888';
+const BASE_URL = 'https://80.78.242.164';
 let isRefreshing = false;
 let refreshPromise = null;
 
